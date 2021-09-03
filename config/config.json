@@ -1,0 +1,19 @@
+{
+  "location": "shiraz, fars",
+  "from_date": "2020-08-21 00:00:00",
+  "to_date": "2021-08-20 23:00:00",
+  "lat": null,
+  "long": null,
+  "resolution": "1hour",
+  "algorithms": [
+    {
+      "name": "abnormal_detector3",
+      "description": "outliers using z-score"
+    }
+  ],
+  "data": {
+    "path": "",
+    "data_file": "",
+    "stack_level": true
+  }
+}
