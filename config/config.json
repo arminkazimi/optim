@@ -1,18 +1,33 @@
 {
+  "base_path": "reports/",
   "location": "shiraz, fars",
   "from_date": "2020-08-21 00:00:00",
   "to_date": "2021-08-20 23:00:00",
   "lat": null,
   "long": null,
   "resolution": "1hour",
-  "algorithms": [
+  "problems": [
     {
-      "name": "abnormal_detector3",
-      "description": "outliers using z-score"
+      "name": "power_grid_problem",
+      "method": "overall",
+      "data_path": "resources/demands_720h.csv",
+      "off_pick_price": 5,
+      "semi_pick_price": 10,
+      "on_pick_price": 50,
+      "max_pick_price": 100,
+      "b_power": 13,
+      "b_max": 26,
+      "b0": 0,
+      "eps": 0.02,
+      "max0": 0
+    },
+    {
+      "name": "solar_wind_sizing",
+      "description": ""
     }
   ],
   "data": {
-    "path": "",
+    "path": "resources/demands_720h.csv",
     "data_file": "",
     "stack_level": true
   }

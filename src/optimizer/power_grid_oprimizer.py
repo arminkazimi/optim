@@ -1,27 +1,11 @@
 import pulp as pl
 
-class WindSolarOptimizer():
-    def __init__(self, df, off_pick_price,
-            semi_pick_price,
-            on_pick_price,
-            max_pick_price,
-            b_power,
-            b_max,
-            b0,
-            eps,
-            max0):
+
+
+class PowerGridOptimizer:
+    def __init__(self, df, problem_data):
         self.df = df
-        self.off_pick_price = off_pick_price
-        self.semi_pick_price = semi_pick_price
-        self.on_pick_price = on_pick_price
-        self.max_pick_price = max_pick_price
-        self.b_power = b_power
-        self.b_max = b_max
-        self.b0 = b0
-        self.eps = eps
-        self.max0 = max0
-
-
+        self.problem_data = problem_data
 
     def optimizer(self):
 
@@ -44,11 +28,11 @@ class WindSolarOptimizer():
 
         #  Define Objective function
         problem2 += (pl.lpSum(value.cost * x[f'x{index}'] for index, value in self.df.iterrows())
-                     + pl.lpSum(self.eps * abs_vars[f'abs{index}'] for index, value in self.df.iterrows())
-                     + off * self.off_pick_price
-                     + on * self.on_pick_price
-                     + semi * self.semi_pick_price
-                     + (max1 - self.max0) * self.max_pick_price
+                     + pl.lpSum(self.problem_data['eps'] * abs_vars[f'abs{index}'] for index, value in self.df.iterrows())
+                     + off * self.problem_data['off_pick_price']
+                     + on * self.problem_data['on_pick_price']
+                     + semi * self.problem_data['semi_pick_price']
+                     + (max1 - self.problem_data['max0']) * self.problem_data['max_pick_price']
                      )
 
         #  Define Constraints
@@ -62,11 +46,11 @@ class WindSolarOptimizer():
             if value.pick == 'semi':
                 problem2 += (semi >= x[f'x{index}'])
 
-            problem2 += (pl.lpSum(x[f'x{i}'] for i in range(index + 1)) + self.b0 >= pl.lpSum(
+            problem2 += (pl.lpSum(x[f'x{i}'] for i in range(index + 1)) + self.problem_data['b0'] >= pl.lpSum(
                 d[i] for i in range(index + 1)))
-            problem2 += (pl.lpSum(x[f'x{i}'] - d[i] for i in range(index + 1)) + self.b0 <= self.b_max)
-            problem2 += x[f'x{index}'] - d[index] <= self.b_power
-            problem2 += d[index] - x[f'x{index}'] <= self.b_power
+            problem2 += (pl.lpSum(x[f'x{i}'] - d[i] for i in range(index + 1)) + self.problem_data['b0'] <= self.problem_data['b_max'])
+            problem2 += x[f'x{index}'] - d[index] <= self.problem_data['b_power']
+            problem2 += d[index] - x[f'x{index}'] <= self.problem_data['b_power']
 
             problem2 += abs_vars[f'abs{index}'] >= (x[f'x{index}'] - d[index]) * value.cost
             problem2 += abs_vars[f'abs{index}'] >= -(x[f'x{index}'] - d[index])
