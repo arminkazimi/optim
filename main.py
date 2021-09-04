@@ -2,8 +2,7 @@ import json
 import geocoder
 from argparse import ArgumentParser
 from investigator import Investigator
-from data_generator.solar_generator import SolarGenerator
-from data_generator.wind_generator import WindGenerator
+
 
 def main():
     f = open('config/config.json', )
@@ -27,13 +26,8 @@ def main():
     from_date = config['from_date']
     to_date = config['to_date']
     resolution = config['resolution']
-    # solar = SolarGenerator(from_date, to_date, latitude, longitude, resolution)
-    # wind = WindGenerator(from_date, to_date, latitude, longitude, resolution)
-    # solar_data = solar.generator()
-    # wind_data = wind.generator()
-    # print('solar_data: ', solar_data)
-    # print('wind_data: ', wind_data['wspd'])
-    print(investigator.problems[0]['name'])
+
+
 
 if __name__ == '__main__':
     main()

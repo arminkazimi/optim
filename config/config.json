@@ -23,7 +23,18 @@
     },
     {
       "name": "solar_wind_sizing",
-      "description": ""
+      "data_path": "resources/demands_720h.csv",
+      "location": "shiraz, fars",
+      "from_date": "2021-07-21 00:00:00",
+      "to_date": "2021-08-19 23:00:00",
+      "battery_max_capacity": 100,
+      "battery_0": 50,
+      "eps": 0.02,
+      "solar_cost": 3,
+      "wind_cost": 3,
+      "lat": null,
+      "long": null,
+      "resolution": "1hour"
     }
   ],
   "data": {
